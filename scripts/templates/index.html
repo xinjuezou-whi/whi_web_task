@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- ===============================================-->
+    <!--    Document Title-->
+    <!-- ===============================================-->
+    <title>萃科智能</title>
+
+    <!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+    <link rel="apple-touch-icon" sizes="180x180" href={{ url_for('static', filename='assets/images/apple-touch-icon.png') }} >
+
+
+    <link rel="shortcut icon" type="image/x-icon" href={{ url_for('static', filename='assets/img/favicons/favicon.ico') }} >
+    <link rel="manifest" href={{ url_for('static', filename='assets/img/favicons/manifest.json') }} >
+    <meta name="msapplication-TileImage" content={{ url_for('static', filename='assets/images/mstile-150x150.png') }}  >
+    <meta name="theme-color" content="#ffffff">
+    <script src={{ url_for('static', filename='assets/js/imagesloaded.pkgd.min.js') }} ></script>
+    <script src={{ url_for('static', filename='assets/js/simplebar.min.js') }}  ></script>
+    <script src={{ url_for('static', filename='assets/js/config1.js') }} ></script>
+
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href={{ url_for('static', filename='assets/css/css2.css') }}  rel="stylesheet">
+    <link href={{ url_for('static', filename='assets/css/simplebar.min.css') }}  rel="stylesheet">
+    <link rel="stylesheet" href={{ url_for('static', filename='assets/css/line.css') }}  >
+    <link href={{ url_for('static', filename='assets/css/theme-rtl.min1.css') }}  type="text/css" rel="stylesheet" id="style-rtl">
+    <link href={{ url_for('static', filename='assets/css/theme.min1.css') }}   type="text/css" rel="stylesheet" id="style-default">
+    <link href={{ url_for('static', filename='assets/css/user-rtl.min.css') }}  type="text/css" rel="stylesheet" id="user-style-rtl">
+    <link href={{ url_for('static', filename='assets/css/user-rtl.min.css') }}  type="text/css" rel="stylesheet" id="user-style-default">
+    <script>
+        var phoenixIsRTL = window.config.config.phoenixIsRTL;
+        if (phoenixIsRTL) {
+            var linkDefault = document.getElementById('style-default');
+            var userLinkDefault = document.getElementById('user-style-default');
+            linkDefault.setAttribute('disabled', true);
+            userLinkDefault.setAttribute('disabled', true);
+            document.querySelector('html').setAttribute('dir', 'rtl');
+        } else {
+            var linkRTL = document.getElementById('style-rtl');
+            var userLinkRTL = document.getElementById('user-style-rtl');
+            linkRTL.setAttribute('disabled', true);
+            userLinkRTL.setAttribute('disabled', true);
+        }
+    </script>
+    <link href={{ url_for('static', filename='assets/css/leaflet1.css') }}   rel="stylesheet">
+    <link href={{ url_for('static', filename='assets/css/MarkerCluster.css') }}   rel="stylesheet">
+    <link href={{ url_for('static', filename='assets/css/MarkerCluster.Default.css') }}  rel="stylesheet">
+</head>
+
+<body>
+<!-- ===============================================-->
+<!--    Main Content-->
+<!-- ===============================================-->
+<main class="main" id="top">
+
+    <!-- 左侧菜单栏 -->
+    <nav class="navbar navbar-vertical navbar-expand-lg">
+
+        <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
+            <!-- scrollbar removed-->
+            <div class="navbar-vertical-content">
+
+                <!-- 菜单列表 -->
+                <ul class="navbar-nav flex-column" id="navbarVerticalNav">
+                    <li class="nav-item">
+                        <!-- parent pages-->
+                        <div class="nav-item-wrapper">
+
+                            <a class="nav-link dropdown-indicator label-1" href="#nv-home" role="button"
+                               data-bs-toggle="collapse" aria-expanded="true" aria-controls="nv-home">
+                                <div class="d-flex align-items-center">
+                                    <div class="dropdown-indicator-icon"><span class="fas fa-caret-right"></span></div>
+                                    <span class="nav-link-icon"><span data-feather="pie-chart"></span></span><span
+                                        class="nav-link-text">首页</span>
+                                </div>
+                            </a>
+
+                            <div class="parent-wrapper label-1">
+                                <ul class="nav collapse parent show" data-bs-parent="#navbarVerticalCollapse"
+                                    id="nv-home">
+                                    <li class="collapsed-nav-item-title d-none">首页</li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="/" data-bs-toggle=""
+                                           aria-expanded="false">
+                                            <div class="d-flex align-items-center"><span
+                                                    class="nav-link-text">任务仪表板</span></div>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="navbar-vertical-footer">
+            <button class="btn navbar-vertical-toggle border-0 fw-semibold w-100 white-space-nowrap d-flex align-items-center">
+                <span class="uil uil-left-arrow-to-left fs-8"></span>
+                <span class="uil uil-arrow-from-right fs-8"></span>
+                <span class="navbar-vertical-footer-text ms-2">折叠视图</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 头部信息 -->
+    <nav class="navbar navbar-top fixed-top navbar-expand" id="navbarDefault">
+        <div class="collapse navbar-collapse justify-content-between">
+
+            <!-- logo -->
+            <div class="navbar-logo">
+                <button class="btn navbar-toggler navbar-toggler-humburger-icon hover-bg-transparent" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse"
+                        aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation">
+                    <span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
+                <a class="navbar-brand me-1 me-sm-3" href="/">
+                    <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center"><img src={{ url_for('static', filename='assets/images/logo.png') }}   alt="phoenix"
+                                                                    width="27">
+                            <p class="logo-text ms-2 d-none d-sm-block">萃科智能</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="content">
+
+        <!-- 图表 -->
+        <div class="pb-5">
+            <div class="row g-4">
+
+                <div class="col-12 col-xxl-6">
+                    <div class="mb-8">
+                        <h2 class="mb-2">任务仪表板</h2>
+                        <h5 class="text-700 fw-semi-bold">以下是巡检系统正在开展的巡检任务</h5>
+                    </div>
+                    <div class="row align-items-center g-4">
+                        <div class="col-12 col-md-auto">
+                            <div class="d-flex align-items-center"><img src={{ url_for('static', filename='assets/images/4l.png') }} alt="" height="46"
+                                                                        width="46">
+                                <div class="ms-3">
+                                    <h4 class="mb-0"><a href="" id="loadPendingData"
+                                                        th:text="${dsize} + ' 任务'">0 任务</a></h4>
+                                    <p class="text-800 fs--1 mb-0">待处理</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-auto">
+                            <div class="d-flex align-items-center"><img src={{ url_for('static', filename='assets/images/3l.png') }}  alt="" height="46"
+                                                                        width="46">
+                                <div class="ms-3">
+                                    <h4 class="mb-0"><a href="" id="loadInProgressData"
+                                                        th:text="${csize} + ' 任务'">0 任务</a></h4>
+                                    <p class="text-800 fs--1 mb-0">进行中</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-auto">
+                            <div class="d-flex align-items-center"><img src={{ url_for('static', filename='assets/images/2l.png') }}  alt="" height="46"
+                                                                        width="46">
+                                <div class="ms-3">
+                                    <h4 class="mb-0"><a href="" id="loadErrorData" th:text="${ysize} + ' 任务'">0
+                                        任务</a></h4>
+                                    <p class="text-800 fs--1 mb-0">异常</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="bg-200 mb-6 mt-4">
+
+                    <div class="row flex-between-center mb-4 g-3">
+                        <div class="col-auto">
+                            <h3>当月任务耗时总览</h3>
+                            <p class="text-700 lh-sm mb-0">同比上月任务耗时</p>
+                        </div>
+                        <!--
+                        <div class="col-8 col-sm-4">
+                            <select class="form-select form-select-sm mt-2" id="select-gross-revenue-month">
+                                <option>2024年01月01日 - 31日</option>
+                                <option>2022年12月01日 - 31日</option>
+
+                            </select>
+                        </div>
+                        -->
+                    </div>
+
+                </div>
+
+
+                <div class="col-12 col-xxl-6">
+                    <div class="row g-3">
+                        <div class="col-12 col-md-6">
+                            <div class="card h-100">
+                                <div class="card-body">
+
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h5 class="mb-1">每日任务<span
+                                                    class="badge badge-phoenix badge-phoenix-warning rounded-pill fs--1 ms-2"></span>
+                                            </h5>
+                                            <h6 class="text-700">过去7天</h6>
+                                        </div>
+                                        <h4>300</h4>
+                                    </div>
+
+                                    <div class="d-flex justify-content-center px-4 py-6">
+                                        <div class="echart-total-orders" style="height:85px;width:115px"></div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="bullet-item bg-primary me-2"></div>
+                                            <h6 class="text-900 fw-semi-bold flex-1 mb-0">完成</h6>
+                                            <h6 class="text-900 fw-semi-bold mb-0">95%</h6>
+                                        </div>
+
+                                        <div class="d-flex align-items-center">
+                                            <div class="bullet-item bg-primary-100 me-2"></div>
+                                            <h6 class="text-900 fw-semi-bold flex-1 mb-0">未完成</h6>
+                                            <h6 class="text-900 fw-semi-bold mb-0">5%</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h5 class="mb-1">任务耗时</h5>
+                                            <h6 class="text-700">过去7天</h6>
+                                        </div>
+                                        <h4>356</h4>
+                                    </div>
+                                    <div class="pb-0 pt-4">
+                                        <div class="echarts-new-customers" style="height:180px;width:100%;"
+                                            data-echart-responsive="true"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 数据表格 -->
+        <div class="mx-n4 px-4 mx-lg-n6 px-lg-6 bg-white pt-7 border-y border-300">
+            <div class="p-5">
+
+                <div class="row align-items-end justify-content-between pb-5 g-3">
+                    <div class="col-auto">
+                        <h3>巡检数据列表</h3>
+                        <p class="text-700 lh-sm mb-0">所有巡检数据列表</p>
+                    </div>
+                </div>
+
+                <div class="table-responsive mx-n1 px-1 scrollbar">
+                    <table class="table fs--1 mb-0 border-top border-200">
+                        <thead>
+                        <tr>
+                            <th class="white-space-nowrap fs--1 ps-0 align-middle">
+                                <div class="form-check mb-0 fs-0">
+                                    <input class="form-check-input" id="checkbox-bulk-reviews-select" type="checkbox"
+                                           data-bulk-select='{"body":"table-latest-review-body"}'>
+                                </div>
+                            </th>
+                            <th class="sort white-space-nowrap align-middle" scope="col" style="min-width:100px;">任务名称
+                            </th>
+                            <th class="sort align-middle" scope="col" style="max-width:350px;">检测时间</th>
+                            <th class="sort align-middle" scope="col" style="max-width:350px;">柜体名称</th>
+                            <th class="sort align-middle" scope="col" style="max-width:350px;">设备名称</th>
+                            <th class="sort align-middle" scope="col" style="max-width:350px;">检测结果</th>
+                            <th class="sort align-middle" scope="col" style="max-width:350px;">准确率</th>
+
+                        </tr>
+                        </thead>
+                        <tbody id="table-latest-review-body">
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 分页 -->
+                <nav aria-label="Page navigation example" style="margin-top: 20px;">
+                    <ul id="paginationContainer" class="pagination justify-content-end">
+                        <li class="page-item disabled">
+                            <a class="page-link">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+
+
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
+                     aria-labelledby="offcanvasRightLabel" style="width: 720px;">
+                    <div class="offcanvas-header">
+                        <h3 class="offcanvas-title" id="offcanvasRightLabel">点位信息明细</h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+
+                    <div class="offcanvas-body p-0">
+                        <div class="p-5 p-md-6">
+
+
+                            <h4 class="mb-3">检测结果信息</h4>
+                            <div class="mb-6">
+                                <div class="point-detail-item">
+                                    <span class="detail-label">检测编号:</span>
+                                    <span id="pointId" class="detail-value"></span>
+                                </div>
+                                <div class="point-detail-item">
+                                    <span class="detail-label">任务名称:</span>
+                                    <span id="sceneName" class="detail-value"></span>
+                                </div>
+                                <div class="point-detail-item">
+                                    <span class="detail-label">柜体名称:</span>
+                                    <span id="pointName" class="detail-value"></span>
+                                </div>
+                                <div class="point-detail-item">
+                                    <span class="detail-label">设备名称:</span>
+                                    <span id="detectionName" class="detail-value"></span>
+                                </div>
+                                <div class="point-detail-item">
+                                    <span class="detail-label">检测结果:</span>
+                                    <span id="clsData" class="detail-value"></span>
+                                </div>
+                                <div class="point-detail-item">
+                                    <span class="detail-label">准确率:</span>
+                                    <span id="detectionStatus" class="detail-value"></span>
+                                </div>
+                                <div class="point-detail-item">
+                                    <span class="detail-label">检测时间:</span>
+                                    <span id="detectionTime" class="detail-value"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="mb-6">
+                            <div class="px-5 px-md-6">
+                                <h4 class="mb-3">图片</h4>
+                            </div>
+                            <div class="border-top border-300 px-5 px-md-6 py-4">
+                                <div class="me-n3">
+                                    <img id="imgUrl" class="rounded-2" alt="" style="max-width:400px">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 版权信息 -->
+        <footer class="footer position-absolute">
+            <div class="row g-0 justify-content-between align-items-center h-100">
+                <div class="col-12 col-sm-auto text-center">
+                    <p class="mb-0 mt-2 mt-sm-0 text-900">
+                        <span class="d-none d-sm-inline-block"></span>
+                        <span class="d-none d-sm-inline-block mx-1"></span><br class="d-sm-none">2023-2024 &copy;<a
+                            class="mx-1" href="javascript:;">萃科智能 公司。保留所有权利。</a></p>
+                </div>
+                <div class="col-12 col-sm-auto text-center">
+                    <p class="mb-0 text-600">v1.0</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+
+</main>
+<!-- ===============================================-->
+<!--    End of Main Content-->
+<!-- ===============================================-->
+
+
+<!-- ===============================================-->
+<!--    JavaScripts-->
+<!-- ===============================================-->
+<script src={{ url_for('static', filename='assets/js/popper.min2.js') }}  ></script>
+<script src={{ url_for('static', filename='assets/js/bootstrap.min1.js') }}  ></script>
+<script src={{ url_for('static', filename='assets/js/anchor.min.js') }} ></script>
+<script src={{ url_for('static', filename='assets/js/is.min.js') }}  ></script>
+<script src={{ url_for('static', filename='assets/js/all.min.js') }} ></script>
+<script src={{ url_for('static', filename='assets/js/lodash.min.js') }}  ></script>
+<script src={{ url_for('static', filename='assets/js/polyfill.min.js') }} ></script>
+<script src={{ url_for('static', filename='assets/js/list.min.js') }}  ></script>
+<script src={{ url_for('static', filename='assets/js/feather.min.js') }}  ></script>
+<script src={{ url_for('static', filename='assets/js/dayjs.min.js') }} ></script>
+<script src={{ url_for('static', filename='assets/js/phoenix1.js') }}  ></script>
+
+<script src={{ url_for('static', filename='assets/js/echarts.min.js') }} ></script>
+
+<script src={{ url_for('static', filename='assets/js/index.min.js') }} ></script>
+<script src={{ url_for('static', filename='assets/js/js-AIzaSyDbaQGvhe7Af-uOMJz68NWHnO34UjjE7Lo_revenueMapInit.js') }}   async=""></script>
+<script src={{ url_for('static', filename='assets/js/leaflet1.js') }}  ></script>
+<script src={{ url_for('static', filename='assets/js/leaflet.markercluster.js') }}  ></script>
+<script src={{ url_for('static', filename='assets/js/leaflet-tilelayer-colorfilter.min.js') }} ></script>
+
+<script src={{ url_for('static', filename='assets/js/ecommerce-dashboard1.js') }}  ></script>
+
+
+<!-- 引入 jQuery 库，用于 Ajax 请求 -->
+<script src={{ url_for('static', filename='assets/js/jquery-3.6.4.min.js') }} ></script>
+<!-- 日期格式化 -->
+<script src={{ url_for('static', filename='assets/js/moment.min.js') }}  ></script>
+
+<!-- 自定义的 JavaScript 代码 -->
+<script th:inline="javascript">
+
+    function updateTable(pageNumber) {
+        $.ajax({
+            url: '/tasklist',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                pageNum: pageNumber
+
+            }),
+            success: function (data) {
+                // 更新表格内容
+                //console.log(data);
+                updateTableContent(data.content);
+                // 更新分页按钮 总页数  当前页码
+                updatePagination(data.totalPages, pageNumber);
+            },
+            error: function () {
+                console.error('获取任务数据失败。');
+            }
+        });
+    }
+
+
+    // 更新表格内容
+    function updateTableContent(data) {
+        var tableBody = $('#table-latest-review-body');
+        tableBody.empty(); // 清空表格内容
+
+
+        // 使用 Thymeleaf 迭代数据并构建表格行
+        /* th:each="item : ${data}" */
+        //console.log(data);
+        for (var i = 0; i < data.length; i++) {
+            //var item = data[i];
+
+            const result = data[i].replace(/'/g, '"');      //引号转换为 json格式
+            const item = JSON.parse(result);
+            // 创建一个 Date 对象，并将秒数转换为毫秒
+
+            var date = new Date(item.current_time * 1000);
+            var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss');
+            // 获取 _id 值
+            var idValue = item._id
+
+            // 自信度保留小数点后两位
+            var accProb = parseFloat(item.acc_prob).toFixed(2);
+
+            // 构建表格行
+            var row =
+                // 判断 detectionStatus 是否为异常，设置背景色  onclick="showPointDetails(' + item.id + ')"
+                '<tr onclick="showPointDetails(\'' + idValue + '\')"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">' +
+                '<td class="fs--1 align-middle ps-0">' +
+                '<div class="form-check mb-0 fs-0">' +
+                '<input class="form-check-input" type="checkbox" data-bulk-select-row="{}">' +
+                '</div>' +
+                '</td>' +
+                '<td>' + item.task_name + '</td>' +
+                '<td>' + formattedDate + '</td>' +
+                '<td>' + item.cabinet_id + '</td>' +
+                '<td>' + item.cls + '</td>' +
+                '<td>' + item.state + '</td>' +
+                '<td>' + accProb + '</td>' +
+                '</tr>';
+
+
+            tableBody.append(row);
+        }
+    }
+
+
+    // 更新分页按钮
+    function updatePagination(totalPages, currentPage) {
+        var paginationContainer = $('#paginationContainer');
+        paginationContainer.empty();
+
+        // 添加上一页按钮
+        var prevPageLink = '<li class="page-item px-1 me-1' + (currentPage === 1 ? ' disabled' : '') + '">' +
+            '<a class="page-link"  onclick="updateTable(' + (currentPage - 1) + ')">&laquo;</a>' +
+            '</li>';
+        paginationContainer.append(prevPageLink);
+
+        // 添加数字页按钮
+        var visiblePages = 3;  // 设置要显示的页码数量
+        var startPage = Math.max(1, currentPage - Math.floor(visiblePages / 2));
+        var endPage = Math.min(totalPages, startPage + visiblePages - 1);
+
+        for (var i = startPage; i <= endPage; i++) {
+            var pageLink = '<li class="page-item' + (i === currentPage ? ' active' : '') + '">' +
+                '<a class="page-link"  onclick="updateTable(' + i + ')">' + i + '</a>' +
+                '</li>';
+            paginationContainer.append(pageLink);
+        }
+
+        // 添加省略号
+        if (startPage > 1) {
+            paginationContainer.append('<li class="page-item disabled"><span class="page-link">...</span></li>');
+        }
+
+        // 添加下一页按钮
+        var nextPageLink = '<li class="page-item px-1 ms-1' + (currentPage === totalPages ? ' disabled' : '') + '">' +
+            '<a class="page-link"  onclick="updateTable(' + (currentPage + 1) + ')">&raquo;</a>' +
+            '</li>';
+        paginationContainer.append(nextPageLink);
+    }
+
+    // 获取点位详情并显示在 offcanvas 中
+    function showPointDetails(id) {
+
+        $.ajax({
+            url: '/tasks/data/pointId', // 替换为实际的后端接口
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                id: encodeURIComponent(id)
+
+            }),
+            success: function (data) {
+                updatePointDetails(data);
+            },
+            error: function () {
+                console.error('获取点位详情失败。');
+            }
+        });
+    }
+
+    // 更新点位详情内容
+    function updatePointDetails(data) {
+        const result = data[0].replace(/'/g, '"');      //引号转换为 json格式
+        const item = JSON.parse(result);
+
+        $('#pointId').text(item._id);
+
+        // 使用 moment.js 格式化日期
+        var secsValue = item.header.stamp.secs;  // 获取 secs 的值
+        // 创建一个 Date 对象，并将秒数转换为毫秒
+        var date = new Date(secsValue * 1000);
+        var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss');
+
+        $('#sceneName').text(item.task_name);
+        $('#pointName').text(item.cabinet_id);
+        $('#detectionName').text(item.cls);
+        $('#clsData').text(item.state);
+
+        // 自信度保留小数点后两位
+        var accProb = parseFloat(item.acc_prob).toFixed(2);
+        $('#detectionStatus').text(accProb);
+        $('#detectionTime').text(formattedDate);
+
+        // 设置图片路径
+        var img_str = "/webimages/" + item.img_url
+        $('#imgUrl').attr('src', img_str);
+
+        // 设置音频路径
+        //$('#imgUrl').attr('src', data.img_url);
+
+        // 设置视频路径
+        //$('#imgUrl').attr('src', data.img_url);
+
+    }
+
+
+    $(document).ready(function () {
+
+        // 页面加载时初始化表格
+        updateTable(1);
+
+    });
+
+</script>
+
+<script type="text/javascript">
+
+
+    function getDaysInMonth() {
+        var now = new Date();  // 获取当前日期
+        var year = now.getFullYear();  // 获取当前年份
+        var month = now.getMonth() + 1;  // 获取当前月份（注意月份是从 0 开始的，所以要加 1）
+
+        // 创建一个新的日期对象，将日期设置为下个月的第 0 天
+        var nextMonthFirstDay = new Date(year, month, 0);
+
+        // 返回这个日期对象的日期部分，即当前月的天数
+        return nextMonthFirstDay.getDate();
+    }
+
+    function getDaysInPreviousMonth() {
+        var now = new Date();  // 获取当前日期
+        var year = now.getFullYear();  // 获取当前年份
+        var month = now.getMonth();  // 获取当前月份
+
+        // 创建一个新的日期对象，将日期设置为当前月的第 0 天
+        var currentMonthFirstDay = new Date(year, month, 0);
+
+        // 返回这个日期对象的日期部分，即上个月的天数
+        return currentMonthFirstDay.getDate();
+    }
+
+
+</script>
+
+
+</body>
+
+</html>

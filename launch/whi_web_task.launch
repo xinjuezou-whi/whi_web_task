@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node name="whi_web_task" pkg="whi_web_task" type="web_task.py" output="screen">
+  </node>
+
+</launch>
