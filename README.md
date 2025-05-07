@@ -14,7 +14,7 @@ First, make sure the mongodb server is running
 roslaunch whi_mongodb_server mongodb_server.launch
 ```
 
-Then start web server:
+Then start this web server:
 ```
 roslaunch whi_web_task whi_web_task.launch
 ```
