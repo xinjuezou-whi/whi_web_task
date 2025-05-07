@@ -9,12 +9,17 @@ pip install Flask
 
 ## Run
 
-First, make sure the mongodb server is running with following command:
+First, make sure the mongodb server is running
 ```
 roslaunch whi_mongodb_server mongodb_server.launch
 ```
 
-Then open a browser with the robot's IP and port 5000
+Then start web server:
+```
+roslaunch whi_web_task whi_web_task.launch
+```
+
+Now the report can be viewed from a browser with the robot's IP and port 5000
 ```
 http://<robot_ip>:5000/
 ```
