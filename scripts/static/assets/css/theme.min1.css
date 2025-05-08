@@ -25483,7 +25483,8 @@ pre[class*=language-] {
     background-color: var(--phoenix-flatpickr-calendar-bg) !important;
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
-    border: 1px solid var(--phoenix-border-color) !important
+    border: 1px solid var(--phoenix-border-color) !important;
+    display: none;
 }
 
 .flatpickr-calendar.open {

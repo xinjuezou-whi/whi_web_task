@@ -55,6 +55,8 @@
     <link href={{ url_for('static', filename='assets/css/leaflet1.css') }}   rel="stylesheet">
     <link href={{ url_for('static', filename='assets/css/MarkerCluster.css') }}   rel="stylesheet">
     <link href={{ url_for('static', filename='assets/css/MarkerCluster.Default.css') }}  rel="stylesheet">
+    <!-- <link href={{ url_for('static', filename='assets/css_date/bootstrap.min.css') }} rel="stylesheet" media="screen"> -->
+    <link href={{ url_for('static', filename='assets/css_date/bootstrap-datetimepicker.min.css') }} rel="stylesheet" >
 </head>
 
 <body>
@@ -136,6 +138,13 @@
                 </a>
             </div>
         </div>
+
+        <div>
+            开始时间:<input type="text" id="start_time" value="" />
+            结束时间:<input type="text" id="end_time" value="" />
+            <button type="button" id="get_report">生成报告</button>
+        </div>
+
     </nav>
 
 
@@ -425,7 +434,6 @@
 <script src={{ url_for('static', filename='assets/js/leaflet1.js') }}  ></script>
 <script src={{ url_for('static', filename='assets/js/leaflet.markercluster.js') }}  ></script>
 <script src={{ url_for('static', filename='assets/js/leaflet-tilelayer-colorfilter.min.js') }} ></script>
-
 <script src={{ url_for('static', filename='assets/js/ecommerce-dashboard1.js') }}  ></script>
 
 
@@ -433,9 +441,35 @@
 <script src={{ url_for('static', filename='assets/js/jquery-3.6.4.min.js') }} ></script>
 <!-- 日期格式化 -->
 <script src={{ url_for('static', filename='assets/js/moment.min.js') }}  ></script>
+<script src={{ url_for('static', filename='assets/js_date/bootstrap-datetimepicker.js') }} ></script>
+<script src={{ url_for('static', filename='assets/js_date/locales/bootstrap-datetimepicker.zh-CN.js') }} ></script>
 
 <!-- 自定义的 JavaScript 代码 -->
 <script th:inline="javascript">
+    
+    $('#start_time').datetimepicker({
+        language:  'zh-CN',
+		format: 'yyyy-mm-dd hh:ii:ss', 
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        //showMeridian: 1
+    });
+    $('#end_time').datetimepicker({
+        language:  'zh-CN',
+		format: 'yyyy-mm-dd hh:ii:ss', 
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        //showMeridian: 1
+    });
+    
 
     function updateTable(pageNumber) {
         $.ajax({
@@ -602,6 +636,62 @@
 
         // 页面加载时初始化表格
         updateTable(1);
+
+        $("#get_report").click(function(event) {
+
+            var start_time = $("#start_time").val().trim();
+            var end_time = $("#end_time").val().trim();
+
+            if (start_time == "" || end_time == "")
+            {
+                alert("start_time is empty or end_time is empty!");
+                return;
+            }
+
+            $.ajax({
+                url: '/get_report', // 替换为实际的后端接口
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    start_time: start_time,
+                    end_time: end_time,
+
+                }),
+                success: function (data) {
+                    // 生成报告成功后，把它下载下来
+                    var count = parseInt(data["count"])
+                    if (count > 0 )
+                    {
+                        console.log("file_name",data["file_name"]);
+                        /*
+                        var urlstr = "/webreports/" + data["file_name"];
+                        var url = window.URL.createObjectURL(urlstr);
+                        var a = document.createElement('a');
+                        document.body.appendChild(a);
+                        a.href = url;
+                        a.download = "webreport.pdf";
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                        */
+                        var fileLink = document.createElement('a');
+                        fileLink.href = "/webreports/" + data["file_name"];
+                        fileLink.download = "webreport.pdf";
+                        fileLink.click();
+                        alert("报告生成");
+                    }
+                    else
+                    {
+                        alert("任务数量为 0 , 无报告");
+                    }
+
+                },
+                error: function () {
+                    console.error('获取任务信息失败，生成报告失败');
+                }
+            });
+
+
+        });
 
     });
 

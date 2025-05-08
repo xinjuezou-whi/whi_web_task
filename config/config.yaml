@@ -1,0 +1,3 @@
+whi_web_task:
+  inspection_img_url: /home/nvidia/webdata/images/
+  save_report_path: /home/nvidia/pdfReport/

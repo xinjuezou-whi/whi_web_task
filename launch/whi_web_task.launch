@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-
+  <rosparam command="load" file="$(find whi_web_task)/config/config.yaml"/>
   <node name="whi_web_task" pkg="whi_web_task" type="web_task.py" output="screen">
   </node>
 
