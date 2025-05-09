@@ -57,6 +57,22 @@
     <link href={{ url_for('static', filename='assets/css/MarkerCluster.Default.css') }}  rel="stylesheet">
     <!-- <link href={{ url_for('static', filename='assets/css_date/bootstrap.min.css') }} rel="stylesheet" media="screen"> -->
     <link href={{ url_for('static', filename='assets/css_date/bootstrap-datetimepicker.min.css') }} rel="stylesheet" >
+    <style>
+        #get_report {
+          background-color: #0a91ff; /* 蓝色背景 */
+          color: white; /* 白色文字 */
+          padding: 2px 12px; /* 内边距 */
+          text-align: center; /* 文字居中 */
+          text-decoration: none; /* 无文本装饰 */
+          display: inline-block; /* 内联块级元素 */
+          font-size: 14px; /* 字体大小 */
+          margin: 4px 2px; /* 外边距 */
+          cursor: pointer; /* 鼠标悬停时显示手指形状 */
+          border:2px solid #008cba;
+          border-radius:8px;
+        }
+      </style>
+
 </head>
 
 <body>
@@ -130,9 +146,9 @@
                     <span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
                 <a class="navbar-brand me-1 me-sm-3" href="/">
                     <div class="d-flex align-items-center">
-                        <div class="d-flex align-items-center"><img src={{ url_for('static', filename='assets/images/logo.png') }}   alt="phoenix"
-                                                                    width="27">
-                            <p class="logo-text ms-2 d-none d-sm-block">萃科智能</p>
+                        <div class="d-flex align-items-center"><img src={{ url_for('static', filename='assets/images/logo.jpg') }}   alt="phoenix"
+                                                                    width="150">
+                            <p class="logo-text ms-2 d-none d-sm-block"></p>
                         </div>
                     </div>
                 </a>

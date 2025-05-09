@@ -77,8 +77,6 @@ def get_report_fun():
     if not resp.status:
         print("mongodb find error ,please check")
         return False
-    else :
-        print("mongodb find success")
     print('find_count:',resp.result)
     total_count = int(resp.result) 
     if total_count == 0:
@@ -213,8 +211,9 @@ def get_report_fun():
     current_time = datetime.now().strftime("%Y%m%d%H%M%S")
     file_name = f"web_report_{current_time}.pdf"
     full_path = os.path.join(save_report_path_, file_name)
+    print("start output pdf report.")
     pdf.output(full_path)
-    print("output pdf report.")
+    print("output pdf report success.")
 
     result["count"] = total_count
     result["file_name"] = file_name
@@ -248,8 +247,6 @@ def get_task_list():
     if not resp.status:
         print("mongodb find error ,please check")
         return False
-    else :
-        print("mongodb find success")
     #print('find_count:',resp.result)
 
     total_count = int(resp.result) 
